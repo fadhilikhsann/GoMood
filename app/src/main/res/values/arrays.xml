@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="flavour">
+        <item>Cappucino</item>
+        <item>Chocolate</item>
+        <item>Durian</item>
+        <item>Oreo</item>
+        <item>Strawberry</item>
+        <item>Vanilla</item>
+    </string-array>
+</resources>
