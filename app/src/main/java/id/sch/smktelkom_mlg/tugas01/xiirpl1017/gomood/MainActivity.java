@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Spinner spFlavour;
     EditText etcustomer, etamount;
     RadioGroup rgGelas;
-    RadioButton conee;
+    RadioButton conee, cupp;
     TextView tvHasil;
     CheckBox cbKoko, cbOreo, cbOvaltine;
     int nTopping;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         etamount = (EditText) findViewById(R.id.editTextamount);
         rgGelas = (RadioGroup) findViewById(R.id.radioGroupGelas);
         conee = (RadioButton) findViewById(R.id.cone);
+        cupp = (RadioButton) findViewById(R.id.cup);
         cbKoko = (CheckBox) findViewById(R.id.koko);
         cbOreo = (CheckBox) findViewById(R.id.oreo);
         cbOvaltine = (CheckBox) findViewById(R.id.ovaltine);
@@ -51,11 +52,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private void doClick() {
 
         if (isValid()) {
-            String nama, category;
+            String nama, category, glass1;
             int flavour, topping, glass, jumlah, total;
             flavour = 0;
             topping = 0;
             glass = 0;
+            glass1 = null;
             nama = etcustomer.getText().toString();
             jumlah = Integer.parseInt(etamount.getText().toString());
 
@@ -89,14 +91,16 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
                 if (rb.getText().toString().equals("Cone")) {
                     glass = 1500;
+                    glass1 = "Cone";
                 } else if (rb.getText().toString().equals("Cup")) {
                     glass = 3000;
+                    glass1 = "Cup";
                 }
             }
 
             total = (flavour + topping + glass) * jumlah;
 
-            tvHasil.setText("Your name   : " + nama + "\n\nOrder   : " + jumlah + " Ice cream " + glass + " flavour " + flavour + " with " + nTopping + " topping. \n\nPrice    : ");
+            tvHasil.setText("Your name   : " + nama + "\n\nOrder   : " + jumlah + " Ice cream " + glass1 + " flavour " + spFlavour.getSelectedItem().toString() + " with " + nTopping + " topping. \n\nPrice    : " + total);
 
 
         }
@@ -126,18 +130,25 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             etcustomer.setError(null);
         }
 
-        if (!cbOreo.isChecked() || !cbOreo.isChecked() || !cbOreo.isChecked()) {
-            cbOreo.setError("Choose your ice cream topping for make some happy!");
+        if (!cbOreo.isChecked() && !cbKoko.isChecked() && !cbOvaltine.isChecked()) {
+            cbKoko.setError("");
+            cbOvaltine.setError("");
+            cbOreo.setError("");
             valid = false;
         } else {
+            cbKoko.setError(null);
+            cbOvaltine.setError(null);
             cbOreo.setError(null);
         }
 
         if (rgGelas.getCheckedRadioButtonId() == -1) {
-            conee.setError("Do you wanna some glass?");
+            conee.setError("");
+            cupp.setError("");
             valid = false;
         } else {
             conee.setError(null);
+            cupp.setError(null);
+
         }
 
 
@@ -148,7 +159,11 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) nTopping += 1;
-        else nTopping -= 1;
+        if (isChecked) {
+            nTopping += 1;
+        } else {
+            nTopping -= 1;
+        }
+
     }
 }
