@@ -47,6 +47,46 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 doClick();
             }
         });
+
+        findViewById(R.id.koko).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cbKoko.setError(null);
+                cbOreo.setError(null);
+                cbOvaltine.setError(null);
+            }
+        });
+        findViewById(R.id.oreo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cbKoko.setError(null);
+                cbOreo.setError(null);
+                cbOvaltine.setError(null);
+            }
+        });
+        findViewById(R.id.ovaltine).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cbKoko.setError(null);
+                cbOreo.setError(null);
+                cbOvaltine.setError(null);
+            }
+        });
+        findViewById(R.id.cone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                conee.setError(null);
+                cupp.setError(null);
+            }
+        });
+        findViewById(R.id.cup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                conee.setError(null);
+                cupp.setError(null);
+            }
+        });
+
     }
 
     private void doClick() {
@@ -57,19 +97,20 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             flavour = 0;
             topping = 0;
             glass = 0;
+            category = null;
             glass1 = null;
             nama = etcustomer.getText().toString();
             jumlah = Integer.parseInt(etamount.getText().toString());
 
             if (spFlavour.getSelectedItem().toString().equals("Cappucino")) {
                 flavour = 3000;
-                category = "spirit";
+                category = "beneficial";
             } else if (spFlavour.getSelectedItem().toString().equals("Chocolate")) {
                 flavour = 2000;
-                category = "delicious";
+                category = "amazing";
             } else if (spFlavour.getSelectedItem().toString().equals("Durian")) {
                 flavour = 5000;
-                category = "spirit";
+                category = "attractive";
             } else if (spFlavour.getSelectedItem().toString().equals("Oreo")) {
                 flavour = 3000;
                 category = "awesome";
@@ -91,16 +132,16 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
                 if (rb.getText().toString().equals("Cone")) {
                     glass = 1500;
-                    glass1 = "Cone";
+                    glass1 = "cone";
                 } else if (rb.getText().toString().equals("Cup")) {
                     glass = 3000;
-                    glass1 = "Cup";
+                    glass1 = "cup";
                 }
             }
 
             total = (flavour + topping + glass) * jumlah;
 
-            tvHasil.setText("Your name   : " + nama + "\n\nOrder   : " + jumlah + " Ice cream " + glass1 + " flavour " + spFlavour.getSelectedItem().toString() + " with " + nTopping + " topping. \n\nPrice    : " + total);
+            tvHasil.setText("Hello " + nama + "\n\n. Your order is " + jumlah + " ice cream " + glass1 + " flavour " + spFlavour.getSelectedItem().toString() + " with " + nTopping + " topping that's can make your day feel so " + category + ". \n\nPrice    : " + total);
 
 
         }
@@ -127,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             etamount.setError("Insert your amount of your GoMood ice cream order!");
             valid = false;
         } else {
-            etcustomer.setError(null);
+            etamount.setError(null);
         }
 
         if (!cbOreo.isChecked() && !cbKoko.isChecked() && !cbOvaltine.isChecked()) {
