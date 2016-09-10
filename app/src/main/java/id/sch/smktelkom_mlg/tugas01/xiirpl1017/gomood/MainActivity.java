@@ -1,5 +1,8 @@
 package id.sch.smktelkom_mlg.tugas01.xiirpl1017.gomood;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+
     Spinner spFlavour;
     EditText etcustomer, etamount;
     RadioGroup rgGelas;
@@ -92,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private void doClick() {
 
         if (isValid()) {
-            String nama, category, glass1;
+            String nama, category = null, glass1 = null;
             int flavour, topping, glass, jumlah, total;
             flavour = 0;
             topping = 0;
             glass = 0;
-            category = null;
-            glass1 = null;
+
+
             nama = etcustomer.getText().toString();
             jumlah = Integer.parseInt(etamount.getText().toString());
 
@@ -132,16 +136,50 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
                 if (rb.getText().toString().equals("Cone")) {
                     glass = 1500;
-                    glass1 = "cone";
+                    glass1 = "Cone";
                 } else if (rb.getText().toString().equals("Cup")) {
                     glass = 3000;
-                    glass1 = "cup";
+                    glass1 = "Cup";
                 }
             }
 
             total = (flavour + topping + glass) * jumlah;
 
-            tvHasil.setText("Hello " + nama + "\n\n. Your order is " + jumlah + " ice cream " + glass1 + " flavour " + spFlavour.getSelectedItem().toString() + " with " + nTopping + " topping that's can make your day feel so " + category + ". \n\nPrice    : " + total);
+            //tvHasil.setText("Hello " + nama + "\n\n. Your order is " + jumlah + " ice cream " + glass1 + " flavour " + spFlavour.getSelectedItem().toString() + " with " + nTopping + " topping that's can make your day feel so " + category + ". \n\nPrice    : " + total);
+
+            final String fNama = nama;
+            final String fCategory = category;
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            tvHasil.setTextColor(Color.RED);
+                            tvHasil.setText("Your order have been canceled!");
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            etcustomer.setText("");
+                            etamount.setText("");
+                            cbKoko.setChecked(false);
+                            cbOreo.setChecked(false);
+                            cbOvaltine.setChecked(false);
+                            spFlavour.setSelection(1);
+                            conee.setChecked(false);
+                            cupp.setChecked(false);
+                            tvHasil.setTextColor(Color.GREEN);
+                            tvHasil.setText("Thank you for your order, " + fNama + "!\n\nHope this " + spFlavour.getSelectedItem().toString() + " flavour can make your day feel so " + fCategory + "!");
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Hello " + nama + "!\n\nYour order is " + jumlah + " " + spFlavour.getSelectedItem().toString() + " Ice Cream " + glass1 + " with " + nTopping + " topping.\n\nAre you sure want to get your order with price IDR " + total + "?").setNegativeButton("Yes", dialogClickListener)
+                    .setPositiveButton("No", dialogClickListener).show();
+
+
+            //Testing
 
 
         }
