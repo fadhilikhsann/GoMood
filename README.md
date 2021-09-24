@@ -1,4 +1,5 @@
-**GoMood! Aplikasi pemesanan es krim**
+# GoMood!
+Aplikasi Pemesanan Es Krim<br><br>
 
 Aplikasi ini digunakan untuk melakukan pemesanan eskrim. Untuk melakukan pemesanan, pelanggan dapat mengisikan:
 * Nama pelanggan
